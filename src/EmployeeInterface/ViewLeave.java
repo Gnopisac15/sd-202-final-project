@@ -5,14 +5,20 @@
  */
 package EmployeeInterface;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import loginInterface.SignIn;
 
 /**
  *
  * @author 2ndyrGroupB
  */
 public class ViewLeave extends javax.swing.JInternalFrame {
-
+     private int emp_ID=new SignIn().empID;
     /**
      * Creates new form ManageLeave
      */
@@ -23,6 +29,21 @@ public class ViewLeave extends javax.swing.JInternalFrame {
         bi.setNorthPane(null);
     }
 
+    public void tableData(){
+    
+         try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sd-202", "root", "");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM employee where emp_id='"+emp_ID+"'");
+            ResultSet rs = pstm.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) leaveModel.getModel();
+            while(rs.next()){
+                model.addRow(new Object[]{rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)});
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,26 +56,26 @@ public class ViewLeave extends javax.swing.JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        leaveModel = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         setPreferredSize(new java.awt.Dimension(790, 530));
 
-        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        leaveModel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        leaveModel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        leaveModel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Employee ID", "Description", "From Date", "To Date", "Type", "Status"
+                "Email", "Description", "From Date", "To Date", "Type", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(leaveModel);
+        if (leaveModel.getColumnModel().getColumnCount() > 0) {
+            leaveModel.getColumnModel().getColumn(0).setResizable(false);
         }
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -69,7 +90,7 @@ public class ViewLeave extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +121,7 @@ public class ViewLeave extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable leaveModel;
     // End of variables declaration//GEN-END:variables
 }

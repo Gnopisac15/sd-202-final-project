@@ -7,6 +7,7 @@ package EmployeeInterface;
 
 
 import java.awt.*;
+import javax.swing.JOptionPane;
 import loginInterface.SignIn;
 
 /**
@@ -33,6 +34,7 @@ public class EmployeeMainDirectory extends javax.swing.JFrame {
        
         
         ViewLeave manageLeave = new ViewLeave();
+        manageLeave.tableData();
         jDesktopPane1.add(manageLeave).setVisible(true);
     }
 
@@ -94,6 +96,11 @@ public class EmployeeMainDirectory extends javax.swing.JFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -494,7 +501,7 @@ public class EmployeeMainDirectory extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        new SignIn().empID=-1;
+        new SignIn().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -527,8 +534,8 @@ public class EmployeeMainDirectory extends javax.swing.JFrame {
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
-
         ViewLeave manageLeave = new ViewLeave();
+        manageLeave.tableData();     
         jDesktopPane1.add(manageLeave).setVisible(true);
     }//GEN-LAST:event_jPanel6MouseClicked
 
@@ -605,6 +612,12 @@ public class EmployeeMainDirectory extends javax.swing.JFrame {
         pane6.setBackground(paneClick);
         
     }//GEN-LAST:event_jPanel10MousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new SignIn().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

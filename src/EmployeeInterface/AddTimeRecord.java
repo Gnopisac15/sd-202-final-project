@@ -48,8 +48,8 @@ public class AddTimeRecord extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Enter Your  Employee ID# : ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, -1, -1));
+        jLabel2.setText("Enter Your Email  : ");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 230, 40));

@@ -7,9 +7,10 @@ package EmployeeInterface;
 import loginInterface.SignIn;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -17,7 +18,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author 2ndyrGroupB
  */
 public class ManageAcc extends javax.swing.JInternalFrame {
-
+    private int emp_ID=new SignIn().empID;
     /**
      * Creates new form ManageAcc
      */
@@ -140,6 +141,11 @@ public class ManageAcc extends javax.swing.JInternalFrame {
         btnManageAcc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnManageAcc.setForeground(new java.awt.Color(240, 240, 240));
         btnManageAcc.setText("Save Changes");
+        btnManageAcc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnManageAccMouseClicked(evt);
+            }
+        });
         btnManageAcc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnManageAccActionPerformed(evt);
@@ -204,14 +210,33 @@ public class ManageAcc extends javax.swing.JInternalFrame {
     private void pwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pwdActionPerformed
+
+    private void btnManageAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManageAccMouseClicked
+        // TODO add your handling code here:
+        //update
+//        String temp_pwd = String.valueOf(pwd.getPassword());
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sd-202", "root", "");
+            Statement stmt =con.createStatement();
+            stmt.execute("UPDATE employee SET email='" + userEmail.getText() + "',password='" +String.valueOf(pwd.getPassword()) + "',firstName='" + fname.getText() + "',lastName='" + lName.getText() + "',department='" + dpmt.getText() + "',position='" + pos.getText() + "' WHERE emp_id='" + emp_ID + "'");
+            JOptionPane.showMessageDialog(null, "Updated Successfully"); 
+            //Referesh(); //Calling Referesh() method  
+        }catch(SQLException | ClassNotFoundException se){
+            JOptionPane.showMessageDialog(null, se);
+        }
+       
+        
+        
+    }//GEN-LAST:event_btnManageAccMouseClicked
     public void manageAcc(){
-        int empID=new SignIn().empID;
-        System.out.println(empID+" ......");
+       
+        System.out.println(emp_ID+" ......");
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sd-202", "root", "");
             Statement st =con.createStatement();
-            ResultSet rs = st.executeQuery("select * from employee where emp_id='"+empID+"'");
+            ResultSet rs = st.executeQuery("select * from employee where emp_id='"+emp_ID+"'");
             while (rs.next()) {
                 String s1 = rs.getString(2);
                 String s2 = rs.getString(3);
@@ -227,7 +252,7 @@ public class ManageAcc extends javax.swing.JInternalFrame {
                 lName.setText(s4);
                 dpmt.setText(s5);
                 pos.setText(s6);
-                cpwd.setText(s6);
+                cpwd.setText(s2);
             }
         }catch(Exception e){
             System.out.println(e);
